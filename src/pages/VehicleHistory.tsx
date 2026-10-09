@@ -41,48 +41,73 @@ function Tabs() {
         <div
           role="tablist"
           aria-label={HISTORY.docTitle}
-          className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:sticky lg:top-8 lg:z-20 lg:grid-cols-1"
+          className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:sticky lg:top-8 lg:z-20 lg:grid-cols-1"
         >
           {HISTORY.tabs.map((t, k) => (
-            <button
-              key={t.label}
-              role="tab"
-              type="button"
-              aria-selected={k === i}
-              onClick={() => setI(k)}
-              className={`group flex flex-col items-start gap-1 p-5 text-left transition-all duration-300 border ${
-                k === i ? "border-signal bg-ink text-paper shadow-[6px_6px_0_#D9381E] lg:translate-x-3 lg:-translate-y-1.5 relative z-10" : "border-ink bg-paper text-ink hover:bg-stock hover:-translate-y-1 hover:shadow-[4px_4px_0_rgba(23,20,15,0.4)]"
-              }`}
-            >
-              <span className="flex w-full items-baseline justify-between gap-3">
-                <span className="display text-[17px] leading-[1.15] sm:text-[17px]">
-                  {t.label}
-                </span>
-                <span
-                  className={`num text-[10px] tracking-[0.16em] ${
-                    k === i ?"text-marker" :"text-signal"
-                  }`}
-                >
-                  {String(k + 1).padStart(2,"0")}
-                </span>
-              </span>
-              <span
-                className={`label ${k === i ?"text-paper/75" :"text-stone"}`}
-              >
-                {t.name}
-              </span>
-              <span
-                className={`label mt-0.5 border px-1.5 py-0.5 ${
-                  k === i ?"border-paper/50 text-paper" :"border-ink/40 text-ink"
+            <div key={t.label} className="flex flex-col gap-2">
+              <button
+                role="tab"
+                type="button"
+                aria-selected={k === i}
+                onClick={() => setI(k)}
+                className={`group h-full flex flex-col items-start gap-1 p-5 text-left transition-all duration-300 border ${
+                  k === i ? "border-signal bg-ink text-paper shadow-[6px_6px_0_#D9381E] lg:translate-x-3 lg:-translate-y-1.5 relative z-10" : "border-ink bg-paper text-ink hover:bg-stock hover:-translate-y-1 hover:shadow-[4px_4px_0_rgba(23,20,15,0.4)]"
                 }`}
               >
-                {t.badge}
-              </span>
-            </button>
+                <span className="flex w-full items-baseline justify-between gap-3">
+                  <span className="display text-[17px] leading-[1.15] sm:text-[17px]">
+                    {t.label}
+                  </span>
+                  <span
+                    className={`num text-[10px] tracking-[0.16em] ${
+                      k === i ?"text-marker" :"text-signal"
+                    }`}
+                  >
+                    {String(k + 1).padStart(2,"0")}
+                  </span>
+                </span>
+                <span
+                  className={`label ${k === i ?"text-paper/75" :"text-stone"}`}
+                >
+                  {t.name}
+                </span>
+                <span
+                  className={`label mt-0.5 border px-1.5 py-0.5 ${
+                    k === i ?"border-paper/50 text-paper" :"border-ink/40 text-ink"
+                  }`}
+                >
+                  {t.badge}
+                </span>
+              </button>
+              
+              {/* Mobile/Tablet Inline Content */}
+              <div className={`lg:hidden ${k === i ? 'block mt-2 mb-4' : 'hidden'}`}>
+                <div className="border border-ink bg-paper p-5 shadow-[4px_4px_0_rgba(23,20,15,0.12)]">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="h-2 w-2 bg-signal" />
+                    <span className="label text-stone">{t.label}</span>
+                  </div>
+                  <h3 className="display text-[clamp(1.4rem,2.5vw,2rem)] text-ink uppercase">
+                    {t.title}
+                  </h3>
+                  <p className="mt-3 leading-[1.6] text-inksoft text-sm">
+                    {t.body}
+                  </p>
+                  <ul className="mt-4 space-y-2 border-t border-ink/25 pt-4">
+                    {t.points.map((p: string) => (
+                      <li key={p} className="flex gap-2 text-sm">
+                        <span aria-hidden="true" className="mt-[6px] h-1.5 w-1.5 shrink-0 bg-signal" />
+                        <span className="leading-[1.5] text-ink">{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
 
-        <div role="tabpanel" className="w-full">
+        <div role="tabpanel" className="hidden lg:block w-full">
           <div className="border border-ink bg-paper p-6 shadow-[8px_8px_0_rgba(23,20,15,0.12)] transition-shadow duration-300 hover:shadow-[12px_12px_0_rgba(23,20,15,0.16)] sm:p-10">
             <div className="flex items-center gap-3">
               <span className="h-2 w-2 bg-signal" />
