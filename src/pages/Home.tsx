@@ -144,14 +144,15 @@ export function Home() {
                       <dd className="mt-1 leading-snug text-ink">{v.interior}</dd>
                     </div>
                   </dl>
-                  <button
-                    type="button"
-                    onClick={() => openSticker(v.vin)}
+                  <a
+                    href={v.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="label w-full mt-auto flex items-center justify-between gap-3 border-t border-ink pt-4 text-ink transition-colors duration-200 hover:text-signal"
                   >
                     {SAMPLES.cta}
                     <span className="text-signal">→</span>
-                  </button>
+                  </a>
                 </div>
               </article>
             </Reveal>
